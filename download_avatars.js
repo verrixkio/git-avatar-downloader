@@ -29,6 +29,29 @@ console.log(getRepoContributors("jquery", "jquery", function(err, result) {
   
   for (var i = 0; i < result.length; i++) {
     user = result[i]
-    console.log(user.avatar_url)
+    avatarUrl = user.avatar_url
+    filePathName = "./avatardownloads/avatarPicture " + i + ".jpg"
+    downloadImageByURL(avatarUrl, filePathName)
   }
 }));
+
+var url = 'https://avatars1.githubusercontent.com/u/43004?v=4'
+var filePath = "./avatardownloads/testing.jpg"
+var fs = require('fs');
+
+
+function downloadImageByURL(url, filePath) {
+  // ...
+  request.get(url)
+       .on('error', function (err) {
+         throw err; 
+       })
+       .on('response', function (response) {
+         console.log('Response Status Code: ', response.statusCode);
+       })
+       .pipe(fs.createWriteStream(filePath));
+}
+
+
+
+
